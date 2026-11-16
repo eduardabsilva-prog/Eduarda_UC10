@@ -11,26 +11,34 @@ function normalizeTitle(title) {
 function validateTaskInput(input) {
  
   
-  
-  
- // se o titulo estiver vazio, avisa que 'titulo e obrigatorio'
+  // Normaliza o título, removendo espaços extras
+  const title = normalizeTitle(input?.title);
+
+  // Verifica se o título está vazio
   if (!title) {
     throw new Error('O título da tarefa é obrigatório.');
   }
-  // se o titulo estiver mais de 120 caractere, gera um erro
+
+  // Verifica se o título ultrapassa 120 caracteres
   if (title.length > 120) {
     throw new Error('O título deve ter no máximo 120 caracteres.');
   }
 
-   // se a descrição for uma strinng, remove os espaços em branco
-   // senão, retorna
-  // se o titulo estiver vazio, avisa que 'titulo e obrigatorio'
+  // Remove espaços extras da descrição
   const description = typeof input?.description === 'string'
     ? input.description.trim()
     : '';
 
-  return { valid: true, data: { title, description } };
+  // Retorna os dados validados
+  return {
+    valid: true,
+    data: {
+      title,
+      description
+    }
+  };
 }
+
 
 // Exporta as duas funções para que elas possam ser usadas em outros arquivos do seu projeto Node.js
 module.exports = { normalizeTitle, validateTaskInput };
